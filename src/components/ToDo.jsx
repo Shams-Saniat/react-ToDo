@@ -1,9 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
+import Backdrop from './Backdrop';
+import Modal from './Modal';
 
 function ToDo(props) {
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+
     function deleteHandler() {
-        console.log('button clicked');
-        console.log(props.text);
+        setModalIsOpen(true);
+    }
+
+    function closeModalHandler(){
+      setModalIsOpen(false);
     }
 
   return (
@@ -14,7 +21,9 @@ function ToDo(props) {
             <button className="btn btn-soft btn-error" onClick={deleteHandler}>Delete</button>
         </div>
       </div>
-
+      {modalIsOpen && <Modal onCancel={closeModalHandler} onConfirm={closeModalHandler} />}
+      {modalIsOpen && <Backdrop onCancel={closeModalHandler} />}
+      <Backdrop />
     </div>
   );
 }
